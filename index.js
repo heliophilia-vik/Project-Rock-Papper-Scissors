@@ -1,5 +1,6 @@
+let playerScore = 0;
+let computeScore = 0;
 
-// First we will define the Computer Choice - used swtich method for clearer readin
 function getComputerChoice() {
     const randomNumber = Math.floor(Math.random() * 3);
         switch (randomNumber) {
@@ -11,25 +12,20 @@ function getComputerChoice() {
           return 'scissors';
     }
   }
-//   Test if it works on console;
 //   const computerChoice = getComputerChoice();
 //   console.log('Computer chose: ' + computerChoice);
   
-// Test successful.. Proceeding with next step. 
+ 
 function playRound(playerSelection, computerSelection) {
 
-    // Make playerSelection case-insensitive
     const playerChoice = playerSelection.toLowerCase();
   
-    // Define the possible choices
     const choices = ['rock', 'paper', 'scissors'];
   
-    // Check if the player's choice is valid
     if (!choices.includes(playerChoice)) {
       return 'Invalid choice. Please choose Rock, Paper, or Scissors.';
     }
   
-    // Determine the winner
     if (playerChoice === computerSelection) {
       return "It's a tie! " + playerChoice + ' equals ' + computerSelection;
     } else if (
@@ -37,15 +33,47 @@ function playRound(playerSelection, computerSelection) {
       (playerChoice === 'paper' && computerSelection === 'rock') ||
       (playerChoice === 'scissors' && computerSelection === 'paper')
     ) {
+      playerScore++;
       return 'You win! ' + playerChoice + ' beats ' + computerSelection;
     } else {
+      computeScore++;
       return 'You lose! ' + computerSelection + ' beats ' + playerChoice;
     }
   }
 
   // Let's play a round
-  let playerChoice = prompt ('What is your choice?'); // Case-insensitive
-  let computerChoice = getComputerChoice(); 
+  // let playerChoice = prompt ('What is your choice?'); // Case-insensitive
+  // let computerChoice = getComputerChoice(); 
 
-  console.log(playRound(playerChoice, computerChoice));
-  
+  // console.log(playRound(playerChoice, computerChoice));
+  function game() {
+    let computerSelection;
+    let playerChoice;
+    let i = 0;
+
+    while (i<5) {
+        playerChoice = prompt ('What is your choice?'); // Case-insensitive
+        computerSelection = getComputerChoice(); 
+
+        console.log('Game' + (i + 1));
+        console.log(playRound(computerSelection, playerChoice));
+        console.log(`Score is: Player: ${playerScore}, Computer: ${computeScore}`);
+        i++;
+    }
+
+    let result;
+    if (playerScore > computeScore)
+     result = 'Player wins! You are the master of this game';
+     else if (computeScore > playerScore)
+     result = 'Computer wins! You lost, poor Padawan. Better luck next time.'
+     else if (playerScore === 1)
+     result = 'It is a draw!'
+     else
+     result = 'It is a draw'
+
+     console.log('  ');
+     console.log('Game competed')
+     console.log(result);
+} 
+
+game();
